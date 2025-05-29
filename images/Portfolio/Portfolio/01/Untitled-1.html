@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pac-Man Game</title>
+    <style>
+        canvas {
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="pacman" width="400" height="400"></canvas>
+    
+    <script>
+        const canvas = document.getElementById("pacman");
+        const ctx = canvas.getContext("2d");
+
+        // Pac-Man properties
+        const pacMan = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            radius: 30,
+            startAngle: 0.2,
+            endAngle: 1.8,
+            mouthOpen: true,
+            direction: 0, // 0: right, 1: down, 2: left, 3: up
+        };
+
+        // Game loop
+        function draw() {
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw Pac-Man
+            ctx.beginPath();
+            ctx.arc(pacMan.x, pacMan.y, pacMan.radius, pacMan.startAngle * Math.PI, pacMan.endAngle * Math.PI, pacMan.mouthOpen);
+            ctx.lineTo(pacMan.x, pacMan.y);
+            ctx.fillStyle = "yellow";
+            ctx.fill();
+            ctx.closePath();
+
+            // Update Pac-Man's direction
+            if (pacMan.direction === 0) {
+                pacMan.x += 2;
+            } else if (pacMan.direction === 1) {
+                pacMan.y += 2;
+            } else if (pacMan.direction === 2) {
+                pacMan.x -= 2;
+            } else if (pacMan.direction === 3) {
+                pacMan.y -= 2;
+            }
+
+            // Change direction when Pac-Man reaches the canvas boundaries
+            if (pacMan.x > canvas.width) {
+                pacMan.x = -pacMan.radius;
+            } else if (pacMan.x < -pacMan.radius) {
+                pacMan.x = canvas.width;
+            } else if (pacMan.y > canvas.height) {
+                pacMan.y = -pacMan.radius;
+            } else if (pacMan.y < -pacMan.radius) {
+                pacMan.y = canvas.height;
+            }
+
+            // Toggle Pac-Man's mouth open/close
+            pacMan.mouthOpen = !pacMan.mouthOpen;
+
+            // Request a new frame
+            requestAnimationFrame(draw);
+        }
+
+        // Handle arrow key presses to change Pac-Man's direction
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "ArrowRight") {
+                pacMan.direction = 0;
+            } else if (event.key === "ArrowDown") {
+                pacMan.direction = 1;
+            } else if (event.key === "ArrowLeft") {
+                pacMan.direction = 2;
+            } else if (event.key === "ArrowUp") {
+                pacMan.direction = 3;
+            }
+        });
+
+        // Start the game loop
+        draw();
+    </script>
+</body>
+</html>
