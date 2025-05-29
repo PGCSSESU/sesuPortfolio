@@ -1,0 +1,45 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+  }
+  
+  .skill {
+    width: 150px;
+    height: 150px;
+    background: conic-gradient(
+      #3498db 0% 90%,
+      #f0f0f0 90% 100%
+    );
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    animation: fill 3s ease forwards;
+  }
+  
+  .percentage {
+    width: 100px;
+    height: 100px;
+    background: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  @keyframes fill {
+    to {
+      background: conic-gradient(
+        #3498db 0% 60%,
+        #f0f0f0 60% 100%
+      );
+    }
+  }
+  
